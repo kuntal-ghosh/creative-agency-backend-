@@ -10,12 +10,11 @@ router.get('/:email', async function(req,res){
         const admins=await Admin.find({email:email});
         console.log("Success");
         // console.log(admins);
-        if(admins.length>0)
-        {
+        
             console.log(admins.length>0);
           return  res.send(admins.length>0);
 
-        }
+       
 
     } catch (error) {
         console.log(error);
