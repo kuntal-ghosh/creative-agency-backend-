@@ -35,19 +35,6 @@ router.post("/",async (req, res)=>{
         } catch (error) {
             console.log(error);
         }
-        // const name = req.body.name;
-        // const email = req.body.email;
-        // const price = req.body.price;
-        // const description = req.body.description;
-        // const orderName = req.body.orderName;
-        
-        // file.mv(`${__dirname}/images/${file.name}`,err=>{
-        //     if(err){
-        //         console.log("error in uploading file");
-        //     }
-        //     return res.send()
-        // })
-
         const newImg = file.data;
         const encImg = newImg.toString('base64');
 
@@ -57,11 +44,12 @@ router.post("/",async (req, res)=>{
             img: Buffer.from(encImg, 'base64')
         };
         // console.log(name,email);
-    console.log("data");
-    console.log(req.body.name);
-    console.log(req.files);
+    // console.log("data");
+    // console.log(req.body.name);
+    // console.log(req.files);
     // const {error} =validate(req.body);
     // if(error) return res.status(400).send(error.details[0].message);
+ 
 
     let order=new Order({
         name: req.body.name,
@@ -70,11 +58,12 @@ router.post("/",async (req, res)=>{
         details: req.body.details,
         price: req.body.price,
         projectFile: image,
+        status:"pending"
     });
 
     try {
         order= await order.save(); 
-        res.send(order);
+        // res.send(order);
     } catch (error) {
         console.log(error);
     }

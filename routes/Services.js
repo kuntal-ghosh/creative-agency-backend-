@@ -23,6 +23,28 @@ router.get('/', async function(req,res){
 
 })
 
+router.get('/:id', async function(req,res){
+    const id=req.params.id;
+    try {
+        const service=await Service.find({_id:id});
+        console.log("Success");
+        console.log(service);
+        if(service.length>0)
+        {
+            console.log(service[0]);
+          return  res.send(service[0]);
+
+        }
+
+    } catch (error) {
+        console.log(error);
+        return;
+    }
+
+    res.send("No services have been added yet");
+
+})
+
 router.post("/", async (req, res) =>{
 
     let file;

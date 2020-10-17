@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const orders = require('../routes/Orders');
 const services = require('../routes/Services');
+const reviews = require('../routes/Reviews');
+const admins = require('../routes/Admins');
+
 const fileUpload = require('express-fileupload');
 
 // const genres = require('../routes/genres');
@@ -19,6 +22,9 @@ module.exports = function(app) {
     app.use(fileUpload());
     app.use('/api/orders',orders);
     app.use('/api/services',services);
+    app.use('/api/reviews',reviews);
+    app.use('/api/admins',admins);
+
 //   app.use('/api/genres', genres);
 //   app.use('/api/customers', customers);
 //   app.use('/api/movies', movies);
