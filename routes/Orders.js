@@ -1,6 +1,8 @@
 // const { Customer, validate } = require("../models/customer");
 // const auth = require("../middleware/auth");
 const {Order ,validate}= require("../model/Order");
+const {Service }= require("../model/Service");
+
 const express = require("express");
 const router = express.Router();
 
@@ -23,10 +25,26 @@ router.get('/', async (req, res) => {
     }
     
 })
+
+router.get('/:email', async (req, res) => {
+    const email=req.params.email;
+
+    try {
+        const orders=await Order.find({email:email});
+        res.send(orders);
+
+
+    } catch (error) {
+        console.log(error);
+    }
+    
+})
 // app.use(fileUpload());
 
 router.post("/",async (req, res)=>{
 
+    
+    console.log(req.body.service_id);
     let file;
         console.log("end point hitted");
         console.log(req.files);
@@ -43,13 +61,14 @@ router.post("/",async (req, res)=>{
             size: file.size,
             img: Buffer.from(encImg, 'base64')
         };
-        // console.log(name,email);
-    // console.log("data");
-    // console.log(req.body.name);
-    // console.log(req.files);
-    // const {error} =validate(req.body);
-    // if(error) return res.status(400).send(error.details[0].message);
- 
+        let service;
+        try {
+            
+         service = await Service.find({_id:req.body.service_id});
+     console.log(service[0].name);
+        } catch (error) {
+            console.log(error);
+        }
 
     let order=new Order({
         name: req.body.name,
@@ -58,6 +77,8 @@ router.post("/",async (req, res)=>{
         details: req.body.details,
         price: req.body.price,
         projectFile: image,
+        service_image:service[0].image,
+        service_details: service[0].details,
         status:"pending"
     });
 

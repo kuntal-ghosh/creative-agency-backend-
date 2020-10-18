@@ -32,6 +32,12 @@ const Order=mongoose.model('Order',new mongoose.Schema({
     },
     status:{
       type:String
+    },
+    service_image:{
+
+    },
+    service_details:{
+      
     }
 
 }));
